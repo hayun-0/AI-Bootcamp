@@ -1,0 +1,152 @@
+[
+  {
+    "id": "film",
+    "name": "플라스틱 필름·포장재",
+    "examples": [
+      "비닐",
+      "포장 필름",
+      "랩",
+      "PE·PP 필름"
+    ],
+    "blocks": [],
+    "requires": [
+      "crit-R-8-1-cl",
+      "crit-R-8-1-lhv",
+      "crit-R-8-1-pb",
+      "crit-R-8-1-cu",
+      "crit-R-8-1-cd",
+      "crit-R-8-1-as",
+      "crit-R-8-1-hg",
+      "crit-SRF-cl"
+    ],
+    "routes": [
+      "fuel",
+      "burn"
+    ],
+    "priceItem": null,
+    "note": "별표 4의3 51-03-07(플라스틱폐포장재)은 R-8-1·R-8-2가 분석 필요 칸에 있음. 시험 성적서가 열쇠."
+  },
+  {
+    "id": "pvc",
+    "name": "PVC (전선 피복·염화비닐 포장 등)",
+    "examples": [
+      "전선 피복",
+      "염화비닐 포장",
+      "PVC 파이프 조각"
+    ],
+    "blocks": [
+      "R-8-2"
+    ],
+    "requires": [
+      "crit-R-8-1-cl",
+      "crit-SRF-cl",
+      "crit-R-3-3-pvc-iron"
+    ],
+    "routes": [
+      "fuel",
+      "burn"
+    ],
+    "priceItem": null,
+    "note": "R-8-2는 PVC 제외(별표 5의3). R-8-1은 PVC 자체를 금지하지 않고 염소 2% 미만 기준으로 제한 — '불가 확정' 표현 금지. 합성수지 피복 전선(51-03-99)에는 R-8-1이 없음."
+  },
+  {
+    "id": "paper",
+    "name": "종이·골판지",
+    "examples": [
+      "골판지",
+      "종이 포대",
+      "포장지"
+    ],
+    "blocks": [],
+    "requires": [
+      "crit-R-3-3-paper-mill",
+      "crit-R-3-3-paper-other",
+      "crit-R-3-3-submit"
+    ],
+    "routes": [
+      "fuel",
+      "burn"
+    ],
+    "priceItem": "골판지",
+    "note": "R-3-3 폐지 이물질 기준은 제조업체 공급 시. 별도 'paper' 경로 id가 없어 routes는 rules.js와 같이 연료·소각 후보로 둠. 별표 4의3 51-28-02에는 R-8-1이 없고 R-8-2만 분석 필요 칸에 있음. 가격 품목명은 환경공단 조사 품목 중 후보이며 표 대조는 D4 몫."
+  },
+  {
+    "id": "wood",
+    "name": "나무·팔레트",
+    "examples": [
+      "팔레트",
+      "목재 포장재",
+      "나무 자투리"
+    ],
+    "blocks": [],
+    "requires": [
+      "crit-R-8-1-wood-cl",
+      "crit-R-8-1-wood-lhv",
+      "crit-R-8-1-wood-pb",
+      "crit-R-8-1-wood-cu",
+      "crit-R-8-1-wood-cd",
+      "crit-R-8-1-wood-as",
+      "crit-R-8-1-wood-hg"
+    ],
+    "routes": [
+      "fuel",
+      "burn"
+    ],
+    "priceItem": null,
+    "note": "폐목재는 R-8-1에서 (나) 별도 기준 적용. 도료·방부 처리 여부에 따라 별표 4의3 코드(51-20-23/24/25)가 갈림."
+  },
+  {
+    "id": "iron",
+    "name": "쇳조각·철",
+    "examples": [
+      "철 조각",
+      "고철",
+      "철 스크랩"
+    ],
+    "blocks": [],
+    "requires": [
+      "crit-R-3-3-iron",
+      "crit-R-3-3-submit",
+      "crit-R-3-3-pvc-iron"
+    ],
+    "routes": [
+      "scrap"
+    ],
+    "priceItem": "철스크랩",
+    "note": "별표 4의3 51-29-01 고철: R-3-3, R-4-1, R-10. 2%는 제조업체에 공급할 때의 법정 이물질 기준."
+  },
+  {
+    "id": "alu",
+    "name": "알루미늄·구리",
+    "examples": [
+      "알루미늄 조각",
+      "구리선",
+      "비철 스크랩"
+    ],
+    "blocks": [],
+    "requires": [],
+    "routes": [
+      "scrap"
+    ],
+    "priceItem": "알루미늄캔",
+    "note": "별표 4의3 51-29-02 비철금속: R-3-1, R-3-2, R-3-3, R-4-1, R-10. R-3-3의 2%는 '고철' 기준이라 비철에는 적용하지 않음(rules.js와 동일). 가격은 알루미늄캔 시세이며 공장 알루미늄 스크랩과 다를 수 있음. 구리 시세는 없음."
+  },
+  {
+    "id": "wet",
+    "name": "음식물·젖은 것",
+    "examples": [
+      "음식물",
+      "젖은 종이",
+      "수분 많은 잔재"
+    ],
+    "blocks": [],
+    "requires": [
+      "crit-R-8-1-lhv"
+    ],
+    "routes": [
+      "burn"
+    ],
+    "priceItem": null,
+    "note": "[추론] 수분이 많으면 저위발열량이 낮아져 R-8-1의 4,500 kcal/kg 기준을 못 넘길 수 있음(수분→열량 영향은 추론이며 법 조문 아님). 사실: 별표 4의3 51-38-01 음식물류폐기물에는 R-8 유형이 없음(코드 한정)."
+  }
+]

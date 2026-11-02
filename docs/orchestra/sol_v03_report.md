@@ -1,0 +1,38 @@
+[test_contract_v03.py](< /mnt/c/Users/User/Desktop/대학교/3학년/AI Innovation 공모전/masdae-market/backend/tests/acceptance/test_contract_v03.py>) 하나만 작성했습니다. 문법 검사 통과, 테스트는 실행하지 않았습니다. v02는 수정하지 않았습니다.
+
+테스트 이름 21개:
+
+```text
+test_hold_reserves_five_percent_and_full_cap
+test_plus_five_percent_never_cuts_factory_share
+test_decimal_sum_keeps_point_285_within_five_percent
+test_half_won_rounds_up_in_goods_and_settlement
+test_input_kg_and_price_round_before_multiplication
+test_large_order_accepts_22_oku_and_100_oku_boundary
+test_sale_above_100_oku_is_400_without_claiming_bags
+test_regrade_price_increase_is_400_and_dispute_remains
+test_treat_has_separate_factory_charge_and_recycler_fee
+test_return_clears_pass_and_allows_regrade_and_resale
+test_previous_hauler_after_redispatch_gets_409
+test_sale_after_regrade_removed_pass_is_409
+test_agent_run_is_404_for_other_company_and_available_to_owner_operator
+test_private_listing_detail_is_404_for_third_party
+test_health_omits_model_and_company_harness_omits_cards
+test_ungraded_bag_template_summary_has_no_grade_letters
+test_user_strings_do_not_appear_in_public_claim_sentences
+test_template_summary_has_no_citation_punctuation_debris
+test_concurrent_sale_has_one_winner
+test_concurrent_number_and_slot_leave_handover_locked
+test_concurrent_first_ratings_transition_to_rated
+```
+
+v02와 달라진 점은 파일 맨 위에도 기록했습니다.
+
+- 보류금 5% 추가, 공장 몫 삭감 금지
+- treat 별도 청구·수취 칸
+- return 후 연결·통과증 해제
+- 타사 agent-run·비공개 판매 상세 404
+- health 모델명·일반 harness 카드 제외
+- 미등록 재질 원문 공개 문장 제외
+
+100억 초과 검사는 다른 입력 상한 검증과 겹친다는 한계도 주석에 명시했습니다.

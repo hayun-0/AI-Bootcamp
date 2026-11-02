@@ -1,0 +1,10 @@
+[project]
+name = "masdae-market-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["fastapi", "uvicorn", "sqlalchemy>=2", "pydantic>=2", "httpx", "anthropic", "pyyaml", "psycopg[binary]"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = ["live: Ollama 실제 호출 (꺼져 있으면 skip)"]

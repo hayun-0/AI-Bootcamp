@@ -1,0 +1,67 @@
+# 마대 장터 앱 안 오케스트라 선언 (단일 기준). 코드는 이 파일을 읽어 팀·에이전트·흐름·게이트를 만든다.
+name: 마대 장터 에이전트 하네스
+version: 0.1.0
+
+llm:
+  provider: ollama            # ollama | claude | mock | off  (환경변수 LLM_PROVIDER가 우선)
+  ollama:
+    url: http://172.20.32.1:11434   # 환경변수 OLLAMA_URL 우선 (WSL → Windows)
+    model: ax4-light:q4_K_M
+    timeout_s: 15
+  claude:
+    model: claude-sonnet-5-5  # 팀 결정(노션 백엔드 설계 5절). 키는 환경변수 ANTHROPIC_API_KEY
+    max_tokens: 2000
+
+teams:
+  - id: command
+    name: 지휘
+    agents: [orchestrator]
+  - id: sorting
+    name: 분류·등급 팀
+    agents: [profiling, vision, grading]
+  - id: trade
+    name: 거래 팀
+    agents: [bundling, pricing]
+  - id: review
+    name: 평가·규제 팀
+    agents: [economics, regulation]
+
+agents:
+  - {id: orchestrator, team: command, no: 0, name: 지휘 AI, card: agents/orchestrator.md, llm: true}
+  - {id: profiling, team: sorting, no: 1, name: 프로파일링, card: agents/sorting/profiling.md, llm: true}
+  - {id: vision, team: sorting, no: 2, name: 사진 분류 보조, card: agents/sorting/vision.md, llm: true}
+  - {id: grading, team: sorting, no: 3, name: 등급·통과증, card: agents/sorting/grading.md, llm: false}
+  - {id: bundling, team: trade, no: 4, name: 묶음·수거, card: agents/trade/bundling.md, llm: true}
+  - {id: pricing, team: trade, no: 5, name: 시세·판매 시기, card: agents/trade/pricing.md, llm: true}
+  - {id: economics, team: review, no: 6, name: 경제성·환경성, card: agents/review/economics.md, llm: true}
+  - {id: regulation, team: review, no: 7, name: 규제 검토, card: agents/review/regulation.md, llm: true}
+
+# 앱 이벤트 → 실행할 에이전트 순서. 순서는 규칙(이 파일)이 정하고 LLM은 바꾸지 않는다.
+flows:
+  profile_company: [profiling]                  # 공장 가입 때 안내
+  grade_bag: [vision, grading]                  # 마대 등록 후 등급
+  listing_advice: [pricing, bundling, economics]  # 판매 올리기 전 추천
+  deal_check: [regulation]                      # 주문 생성 때 법 체크리스트
+
+gates:
+  - id: evidence      # 주장마다 근거 1개 이상, law 근거는 law_articles.json에 있는 id, 숫자 있는 주장은 dataset/calc/input/assumption/law 근거
+  - id: wording       # policies/forbidden-phrases.json 금지 표현, '모름→없음' 바꿔치기
+  - id: privacy       # 전화번호·이메일·주민번호 모양 차단
+
+summary:
+  max_retries: 1      # LLM 요약이 게이트에 걸리면 1회 재요청, 또 걸리면 템플릿 요약
+
+# 팀 가정(구매자 요구 스펙 확인 전). 바꾸면 테스트도 같이 바꾼다.
+assumptions:
+  grade_thresholds: {A: 0.95, B: 0.90, C: 0.80}   # 순도(목표 재질 무게/전체). C 미만은 통과증 없음
+  hazard_materials: [oil, pcb, asbestos, chemical, medical, grease, solvent, paint, 오일, 기름, 폐유, 유류, 윤활유, 그리스, 석면, 화학약품, 용제, 페인트, 의료폐기물]
+  material_aliases:          # 표준 이름: [별칭…]  (소문자·앞뒤 공백 무시, 공백 포함 별칭 가능)
+    pp: [피피, 폴리프로필렌, polypropylene, pp 자투리, pp자투리, pp 스크랩, pp 사출, pp-h, pp-c]
+    pe: [피이, 폴리에틸렌, polyethylene, hdpe, ldpe, lldpe, 비닐]
+    abs: [에이비에스]
+    ps: [폴리스티렌, polystyrene]
+    pet: [페트, 피이티]
+    pvc: [피브이씨, 염화비닐]
+  min_lot_kg: 1000          # 이보다 적으면 '모아서 팔기' 추천
+  bundle_radius_km: 3
+  incineration_krw_per_ton: {low: 156241, high: 166241, source: INCIN-2026-09}
