@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>운송 파트너 앱 오더 보드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="hub">
+  <section aria-label="앱 미리보기"><div id="phone" class="phone"></div></section>
+  <section class="side">
+        <div class="panel">
+      <h2>좌표로 경로 계산</h2>
+      <p class="muted" style="margin:0">지도를 누르면 출발과 도착이 번갈아 바뀝니다. 좌표를 직접 넣어도 됩니다.</p>
+      <div class="lab-map" id="labmap"></div>
+      <div class="stack">
+        <label class="field" for="place">주소나 장소 검색<input id="place" placeholder="예: 안산시청"></label>
+        <div class="field-row"><button class="lab-btn" type="button" id="placeFrom">출발지로</button><button class="lab-btn" type="button" id="placeTo">도착지로</button></div>
+      </div>
+      <form id="labform" class="stack">
+        <div class="field-row">
+          <label class="field" for="fromLat">출발 위도<input id="fromLat" inputmode="decimal"></label>
+          <label class="field" for="fromLon">출발 경도<input id="fromLon" inputmode="decimal"></label>
+          <label class="field" for="toLat">도착 위도<input id="toLat" inputmode="decimal"></label>
+          <label class="field" for="toLon">도착 경도<input id="toLon" inputmode="decimal"></label>
+        </div>
+        <button class="lab-btn" type="submit">경로 계산</button>
+      </form>
+      <table class="stat-table" id="labstat"></table>
+      <p class="muted t12" id="labmeta" style="margin:0"></p>
+    </div>
+  </section>
+</main>
+<script src="vendor/leaflet.js"></script>
+<script src="data/tiles.js"></script>
+<script src="data/road-graph.js"></script>
+<script src="dijkstra.js"></script>
+<script src="roadnet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
